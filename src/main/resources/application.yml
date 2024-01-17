@@ -1,0 +1,26 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: LAS-SERVICE
+          uri: http://localhost:9001
+          predicates:
+            - Path=/las/analyze/**
+        - id: UBAS-SERVICE
+          uri: http://localhost:9002
+          predicates:
+            - Path=/ubas/data/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
